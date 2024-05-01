@@ -1,0 +1,164 @@
+.rightboder{
+  border-right: 2px solid #ddd
+}
+.cngcolor{
+  font-weight: 500;
+  cursor: pointer;
+}
+.cngcolor:hover{
+  
+  color: #590b4c;
+  font-weight: 500;
+  border-bottom: 2px solid #590b4c;
+  border-right: none;
+  
+  
+}
+.showextra {
+  display: none;
+  z-index: +90000;
+}
+
+.showextrahover:hover + .showextra {
+  display: block;
+}
+.showextra:hover{
+  display: block;
+}
+.zindex{
+  z-index: +1000;
+}
+.box{
+  background: #fff;
+  border-radius: 15px;
+  padding: 10px;
+  border: 1px solid #eee;
+  position: absolute;
+  top:2.5rem;
+  left: -25px;
+ width: 200px;
+ height: 200px;
+  
+}
+.showlogin{
+  display: none;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: #000;
+  left: -150%;
+  background: #fff;
+  border-radius: 15px;
+  padding: 10px;
+  border: 1px solid #eee;
+}
+.showloginhover:hover + .showlogin{
+  display: block;
+}
+.showlogin:hover{
+  display: block;
+}
+.loginbtn{
+  width: 100%;
+  height: 40px;
+  background: #9f2089;
+  color: white;
+  border-radius: 10px;
+}
+.loginform{
+  border-radius: 15px;
+  width: 450px;
+  height: 700px;
+  background: #fff;
+  overflow: hidden;
+ 
+}
+.textgmail{
+  border-bottom: 1px  solid #eee;
+  outline: none;
+}
+
+.inputotp{
+  width: 40px;
+  border-bottom: 2px solid #201f1f;
+  margin-left: 4px;
+  margin-bottom: 30px;
+  font-size: 20px;
+  outline: none;
+}
+
+
+.myfont{
+  font-family: 'Algerian';
+}
+
+.boximg{
+  background-image: url("https://images.meesho.com/images/marketing/1704720332049_1200.webp");
+  border-radius: 15px;
+  width: 80%;
+  height: 80vh;
+  gap: 15px;
+  padding-top: 30px;
+ align-items: center;
+  justify-content: center;
+}
+.oneimg{
+  width: 30%;
+  height: 80%;
+  background: #fff;
+  border-radius: 10px;
+  
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.twoimg{
+  margin-top: 100px;
+  width: 30%;
+  height: 60%;
+  background: #fff;
+  border-radius: 10px;
+}
+.threeimg{
+  margin-top: 100px;
+  width: 30%;
+  height: 60%;
+  background: #fff;
+  border-radius: 10px;
+}
+.innerdivone{
+  width: 100%;
+  height: 100%;
+  
+}
+
+.innerdivone1{
+  background-image: url("https://images.meesho.com/images/marketing/1701835320853_400.webp");
+  background-size: contain;
+}
+.innerdivtwo{
+  background-image: url("https://images.meesho.com/images/marketing/1692191045019_300.webp");
+  background-size: contain;
+}
+.innerdivthree{
+  background-image: url("https://images.meesho.com/images/marketing/1692191103963_300.webp");
+  background-size: contain;
+}
+
+.genderCatagery{
+  border: 1px solid #ddd;
+  width: 30%;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.mainproduct{
+  width: 250px;
+  height: max-content;
+ border: 1px solid #000;
+  border-radius: 10px;
+  padding: 10px;
+  padding-top: 0px;
+  
+}
