@@ -11,6 +11,7 @@ const Cart = () => {
   const {cartData}=useContext(UserContext)
   const alldata=[]
   const [mdata, setdata] = useState();
+  const [show, setshow] = useState(false);
   
   useEffect(() => {
   if(!localStorage.getItem('email')){
@@ -33,6 +34,7 @@ if(localStorage.getItem('messo_id')){
      data.data.map((resp)=>{
        alldata.push(resp)
        setdata(alldata)
+       setshow(true)
        
       
      })
@@ -52,6 +54,10 @@ if(localStorage.getItem('messo_id')){
     
   
     {
+      show?<>
+      
+
+      {
       mdata!=undefined ?<>
       <div className='flex gap-3 text-xl' >
         <h1 className='  border-r-2 pr-2' >Cart</h1> 
@@ -76,6 +82,10 @@ if(localStorage.getItem('messo_id')){
     
     </div>
       </>
+    }
+
+      
+      </>:null
     }
    
    </>

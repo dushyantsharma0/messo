@@ -6,25 +6,30 @@ import { FaAnglesRight } from "react-icons/fa6";
 import { RxStarFilled } from "react-icons/rx";
  import Productdata from './productApi';
 import Product from './product';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import Navbar from './navbar';
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 const ProductDetail = () => {
+
+
   const notify = () => toast.success("Product is added to cart.",{
     position: "bottom-center",
     autoClose: 3000,
     
     
   });
+   
+  const navigate=useNavigate()
 
   const {data,isshowlogin}=useContext(UserContext)
   function senddata(index,item){
     localStorage.setItem('data', JSON.stringify(item))
    data(item)
-   location.reload()
+  
+
  }
   const alldata=Productdata
   const [foundExtraimg , setFoundExtraimg] = useState(false);
@@ -32,6 +37,9 @@ const ProductDetail = () => {
   const [foundSize , setFoundSize] = useState(false);
   
   useEffect(() => {
+    if(window.location.reload){
+      navigate('/ProductDetail')
+    }
      
     window.scrollTo({
       top: 0,
@@ -131,7 +139,7 @@ const ProductDetail = () => {
         {/* ---------sigle imgae line ---------- */}
         <div>
         <div   className=' overflow-hidden w-[400px] h-[400px] border' >
-          <img   className='w-full h-full ' src={imgsrc} alt="" />
+          <img   className='w-full h-full ' src={newdata.img} alt="" />
         </div>
         <br />
      <div className='flex gap-2'>
