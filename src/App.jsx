@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -9,8 +9,10 @@ import Header from './components/header'
 import Home from './components/home'
 import ProductDetail from './components/productDetail'
 import { createContext } from 'react'
+import Cart from './components/cart'
 
 export const UserContext = createContext()
+
 
 function App() {
   const [count, setCount] = useState("one")
@@ -18,6 +20,23 @@ function App() {
   const [FilterData, setFilterData] = useState();
   const [Gender, setGender] = useState();
   const [FilteredPrice, setFilteredPrice] = useState();
+  const [showlogin, setshowlogin] = useState(true); 
+  const [numberOfdata, setnumberOfdata] = useState();
+  
+
+  useEffect(() => {
+   if(localStorage.getItem('nIgOlSi')){
+  
+     setshowlogin(false)
+   }
+
+
+
+
+
+
+
+  }, [])
   const data=(item)=>{
    setmydata(item)
   }
@@ -32,19 +51,29 @@ function App() {
   const FilterPriceList=(item)=>{
     setFilteredPrice(item)
   }
+  const isLogin=(item)=>{
+    setshowlogin(item)
+  }
+  const alldatavalue=(item)=>{
+    localStorage.setItem('totalquantity', item)
+    
+  }
   
   return (
     <>
     <UserContext.Provider value={{count:count,data:data,mydata:mydata,
       filter:filter,FilterData:FilterData,FilterGender:FilterGender,Gender:Gender,
-      FilterPriceList:FilterPriceList,FilteredPrice:FilteredPrice}}>
+      FilterPriceList:FilterPriceList,FilteredPrice:FilteredPrice,
+       isLogin:isLogin,isshowlogin:showlogin,alldatavalue:alldatavalue
+      }}>
     <Router>
-   <Navbar/>
+   
    
    <Routes>
      <Route path="/" element={<Home/>} />
      <Route path="/Login" element={<Login/>} />
      <Route path="/ProductDetail" element={<ProductDetail/>} />
+     <Route path="/cart" element={<Cart/>} />
 
    </Routes>
    </Router>

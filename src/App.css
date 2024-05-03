@@ -162,3 +162,52 @@
   padding-top: 0px;
   
 }
+
+.toast-message {
+  background: darkblue;
+  color: #fff;
+  font-size: 20px;
+  width: 10vw;
+  padding: 30px 20px;
+}
+.round{
+  width: 30px;
+  height: 30px;
+  border: 2px solid #bcb9b9;
+  border-radius: 50%;
+  color: #bcb9b9;
+}
+.line{
+  width:90px;
+  height: 2px;
+  background: #bcb9b9;
+
+}
+.btnProduct{
+  width: max-content;
+  height: max-content;
+  border:1px solid #9f2089;
+  color: #9f2089;
+  font-weight: 700;
+  border-radius: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 20px;
+ 
+ 
+}
+.cartcircle{
+  position: absolute;
+  background-color: #FFE7FB;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  color: #8d1313;
+  font-size: 12px;
+  top: -10px;
+  right: -5px;
+}

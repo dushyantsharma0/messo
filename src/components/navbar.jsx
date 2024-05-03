@@ -10,8 +10,13 @@ import { Link } from 'react-router-dom';
 import Header from './header';
 import { UserContext } from '../App';
 
+
+
 const Navbar = () => {
-  const { filter } = useContext(UserContext);
+ 
+  
+  const { filter,isshowlogin,alldatavalue } = useContext(UserContext);
+  
   const location = useLocation();
   const [showlogin, setshowlogin] = useState(true); // Assuming useState is imported
   const [showAllbars1, setshowAllbars] = useState(false);
@@ -19,6 +24,8 @@ const Navbar = () => {
  const [man, setman] = useState(false);
  const [inputvalue , setInputvalue] = useState("");
   
+ const [dataLength, setdataLength] = useState();
+ 
   useEffect(() => {
     if(location.pathname == '/login'){
       setshowlogin(false);
@@ -27,6 +34,26 @@ const Navbar = () => {
       setshowlogin(true);
       console.log('no');
     }
+  
+ 
+   
+     if(localStorage.getItem('messo_id')){
+      fetch('https://messobackend.vercel.app/totalcarts',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email_id: localStorage.getItem('messo_id'),
+          
+        })
+       }).then((resp)=>resp.json()).then((data)=>{
+        setdataLength(data.data.count)
+        alldatavalue(data.data.count)
+       })
+     }
+
+
   }, [location.pathname]); 
 
  
@@ -85,15 +112,25 @@ const Navbar = () => {
                <h1>Profile</h1> </div>
                <div className='showlogin ' > 
                <p className='text-[20px] font-[600] '>Hello User</p>
+               {
+                isshowlogin?null:<p className=' font-[700] text-[blue] text-[10px]'>{localStorage.getItem('email')}</p>
+               }
                <p className='text-[12px] mb-4 '>To access your Meesho account</p>
                
-               <Link to={'/login'}> <button className='loginbtn mb-4'>Sign up</button></Link>
+               {
+                isshowlogin?<Link to={'/login'}> <button className='loginbtn mb-4'>Sign up</button></Link>: <Link> <button className='loginbtn mb-4'>Log Out</button></Link>
+               }
                <hr />
                <div className='flex  items-center gap-3 font-[600]'> <CiLock/> <p>My Orders</p></div>
                </div>
-                    </div>
 
-               <div className='cngcolor flex flex-col justify-center items-center '> <CiShoppingCart className='text-2xl' /><h1>Cart</h1></div>
+                    </div>
+ {
+  isshowlogin?<Link to={'/login'}> <div className='cngcolor flex flex-col justify-center items-center '> <CiShoppingCart className='text-2xl' /><h1  >Cart</h1> </div> </Link>
+:<Link to={'/cart'}><div className=' relative cngcolor flex flex-col justify-center items-center '> <CiShoppingCart className='text-2xl' /> 
+<h1 className=' cartcircle'>{dataLength}</h1> <h1  >Cart</h1> </div></Link>
+
+ }
                     </>:null
                   }
             </div>

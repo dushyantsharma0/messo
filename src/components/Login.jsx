@@ -1,54 +1,114 @@
 import React, { useEffect,useState, useRef } from 'react';
 import Button from '@mui/material/Button';
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+import {useNavigate} from 'react-router-dom'
+import Navbar from './navbar';
 
 const Login = () => {
+  const navigation = useNavigate();
+  
+
+  const notify = () => toast.success("Otp send Successfully",{
+    position: "top-center",
+    autoClose: 3000,
+    
+    
+  });
+
+  const notify2 = () => toast.error('invalid Otp',{
+    position: "top-center",
+    autoClose: 3000,
+    
+    
+  });
+  const notify3 = () => toast.success('otp verified successfully',{
+    position: "top-center",
+    autoClose: 3000,
+    
+    
+  });
+
   const [email, setEmail] = useState("");
   const [swo, setSwo] = useState(false);
   const [otpShow, setOtpShow] = useState(true);
   const inputs = Array.from({ length: 6 }, () => useRef(null));
   useEffect(() => {
+    if(localStorage.getItem('nIgOlSi')){
+      navigation('/')
+    }
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
+
+     
+
   }, [])
 
   const continueBtn = () => {
     if (!email) {
       setSwo(true);
     }
+    if (email) {
+
+      fetch('https://messobackend.vercel.app/register',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email
+      })
+     }).then((resp)=>resp.json().then((data)=>console.log(data)))
+           localStorage.setItem('email', email)
+      
+      notify()
+      setTimeout(() => {
+        setOtpShow(false);
+      }, 3000);
+    }
   };
 
-  const handleChange = (index, e) => {
-    const value = e.target.value;
-    if(index==5){
-        
-    }
-    if (value && index < inputs.length - 1) {
-        console.log(index)
-      inputs[index + 1].current.focus();
-      
-    }
-    
-    
-    
-  };
+
   
-  const handleKey = (index, e) => {
-    const value = e.target.value;
-    if (e.key == 'Backspace' &&index>0 ) {
-        console.log(index)
-        
-      inputs[index -1].current.focus();
-      
+
+ function checkOtp(e){
+    if(e.length==6){
+      fetch('https://messobackend.vercel.app/login',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: localStorage.getItem('email'),
+          otp: e
+        })
+       }).then((resp)=>resp.json().then((data)=>{
+            if(data.sucess==false){
+  notify2()
+            }else{
+              notify3()
+              
+              localStorage.setItem('nIgOlSi','syesithresusinIgOlSi')
+              setTimeout(() => {
+                navigation('/')
+              }, 3000);
+            }
+
+       }))
+       
+     
     }
     
-    
-  };
- 
+  
+ }
 
 
   return (
+    <>
+    <Navbar/>
     <div className=' mt-[-70px] pt-10 pb-20 w-full flex justify-center h-[max-content bg-[#FDEBEF]'>
       <div className='loginform'>
         <img src="https://images.meesho.com/images/marketing/1661417516766.webp" alt="" />
@@ -73,27 +133,30 @@ const Login = () => {
               </div>
               {swo ? <p className='ml-[50px] text-[13px] text-[red] disp1'>Enter a valid Email Id</p> : null}
               <br />
+              <button className='ml-[-30px] loginbtn' onClick={continueBtn}>Continue</button>
+          <ToastContainer/>
             </>
           ) : (
             <>
-              <p>CHANGE EMAIL</p>
-              <br /><br /><br />
-              {inputs.map((input, index) => (
-                <input
-                className=' inputotp'
-                  key={index}
-                  type="text"
-                  maxLength={1}
-                  ref={input}
-                  onKeyDown={(e)=>handleKey(index,e)}
-                  onInput={(e) => handleChange(index, e)
-                
-                }
-                />
-              ))}
+              <p className=' cursor-pointer text-[purple] underline' onClick={()=>setOtpShow(true)} >CHANGE EMAIL</p>
+              <br />
+             
+               <div className='ml-14' >
+               <input onInput={(e)=>checkOtp(e.target.value)} type="text" className=' outline-none    tracking-[30px] w-[250px]' maxLength={6} />
+               <div className='  w-[200px] h-[30px] flex gap-[25px] ' >
+                <div className='bg-[#0c0c0c] w-[30%] h-[2%]'></div>
+                <div className='bg-[black] w-[30%] h-[2%]'></div>
+                <div className='bg-[black] w-[30%] h-[2%]'></div>
+                <div className='bg-[black] w-[30%] h-[2%]'></div>
+                <div className='bg-[black] w-[30%] h-[2%]'></div>
+                <div className='bg-[black] w-[30%] h-[2%]'></div>
+               </div>
+               </div>
+               <ToastContainer/>
+               <h1 className='text-xl text-center font-[600]'>Enter Your OTP</h1>
             </>
           )}
-          <button className='ml-[-30px] loginbtn' onClick={continueBtn}>Continue</button>
+          
         </div>
         <br /><br /><br /><br />
         <p className='text-center'>By continuing, you agree to Meesho’s</p>
@@ -102,6 +165,7 @@ const Login = () => {
         </p>
       </div>
     </div>
+    </>
   );
 };
 

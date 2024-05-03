@@ -7,9 +7,20 @@ import { RxStarFilled } from "react-icons/rx";
  import Productdata from './productApi';
 import Product from './product';
 import { Link } from 'react-router-dom';
+import Navbar from './navbar';
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductDetail = () => {
-  const {data}=useContext(UserContext)
+  const notify = () => toast.success("Product is added to cart.",{
+    position: "bottom-center",
+    autoClose: 3000,
+    
+    
+  });
+
+  const {data,isshowlogin}=useContext(UserContext)
   function senddata(index,item){
     localStorage.setItem('data', JSON.stringify(item))
    data(item)
@@ -60,13 +71,49 @@ const ProductDetail = () => {
   
   
  
+  function datasend(){
+   let emailId=localStorage.getItem('messo_id')
+    fetch('https://messobackend.vercel.app/cartdetail',{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+          name:newdata.name,
+          price:newdata.price,
+          brforeDoscount:newdata.brforeDoscount,
+          off:newdata.off,
+          isfree:newdata.isfree,
+          rating:newdata.rating,
+          img:newdata.img,
+          extraimg:newdata.extraimg,
+          ...(newdata.productDetail ? { ProductDetail: newdata.productDetail } : {}),
+          ...(newdata.SelectSize?{SelectSize:newdata.SelectSize}:{}),
+          catg:newdata.catg,
+          gender:newdata.gender,
+          email:emailId,
+          reviews:newdata.reviews,
+          email_id:localStorage.getItem('messo_id')
+        })
+      }).then((res)=>{
+        res.json().then((result)=>{
+          console.log(result)
+        })
+      }).catch((err)=>{
+        console.log(err)
   
+
+    })
+    
+    notify()
+  }
     
   
 
   
   return (
    <>
+   <Navbar/>
    <br /><br />
     
      <div className=' pl-[30px] pr-[20px] gap-3 flex w-full justify-center'>
@@ -88,10 +135,20 @@ const ProductDetail = () => {
         </div>
         <br />
      <div className='flex gap-2'>
-     <Link to={"/login"}>
+      {
+        isshowlogin?<> 
+        <Link to={"/login"}>
      <button  className=' rounded-[5px] flex items-center gap-3 text-xl border py-2 px-10 border-[purple]'>
            <BsCart2 className='text-[purple]' /> Add To Cart</button>
      </Link>
+        </>:<>
+        
+     <button  onClick={datasend} className=' rounded-[5px] flex items-center gap-3 text-xl border py-2 px-10 border-[purple]'>
+           <BsCart2 className='text-[purple]' /> Add To Cart</button>
+           <ToastContainer/>
+        </>
+      }
+     
        <Link to={"/login"}>
 
        <button className='flex items-center gap-3 bg-[#9F2089] px-10 rounded-[5px] py-[10px] text-white' > <FaAnglesRight/>Buy now</button>

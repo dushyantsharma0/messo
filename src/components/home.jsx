@@ -6,6 +6,7 @@ import Product from './product'
  import { Link } from 'react-router-dom'
  
  import {UserContext} from '../App'
+import Navbar from './navbar'
 
 
 
@@ -84,7 +85,8 @@ function senddata(index,item){
   data(item)
 }
   return (
-    
+   <>
+    <Navbar/>
     <div  >
         <br /><br />
      {
@@ -143,6 +145,7 @@ function senddata(index,item){
      </div>
 
     </div>
+   </>
     
   )
 }
