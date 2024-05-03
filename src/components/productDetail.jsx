@@ -37,9 +37,7 @@ const ProductDetail = () => {
   const [foundSize , setFoundSize] = useState(false);
   
   useEffect(() => {
-    if(window.location.reload){
-      navigate('/ProductDetail')
-    }
+  
      
     window.scrollTo({
       top: 0,
@@ -57,9 +55,13 @@ const ProductDetail = () => {
       setFoundSize(true)
       
     }
+
+
+    setimgsrc(newdata.img)
+
     
   
-  }, [])
+  }, [localStorage.getItem('data')])
   const qdata=localStorage.getItem('data')
   
     const newdata=JSON.parse(qdata)
@@ -126,7 +128,7 @@ const ProductDetail = () => {
     
      <div className=' pl-[30px] pr-[20px] gap-3 flex w-full justify-center'>
      <div>
-       {foundExtraimg?<>
+       {foundExtraimg&&newdata.extraimg!=undefined ?<>
        {
          newdata.extraimg.map((result,key)=>{
           return <img key={key} onClick={()=>setimgsrc(result)} className='w-16' src={result} alt="" />
@@ -139,7 +141,7 @@ const ProductDetail = () => {
         {/* ---------sigle imgae line ---------- */}
         <div>
         <div   className=' overflow-hidden w-[400px] h-[400px] border' >
-          <img   className='w-full h-full ' src={newdata.img} alt="" />
+          <img   className='w-full h-full ' src={imgsrc} alt="" />
         </div>
         <br />
      <div className='flex gap-2'>
@@ -183,7 +185,7 @@ const ProductDetail = () => {
                 <h1 className=' mt-3 bg-[#f5f1f1] w-max px-3 rounded-full text-[#535252]'>{newdata.isfree}</h1>
            </div>
            {
-             foundSize?<>
+             foundSize&&newdata.SelectSize!=undefined?<>
              <div className=' mt-3 w-[100%] h-max  border rounded-[5px] p-5'>
                 <h1 className='font-[700] text-xl' >Select Size </h1>
                 <br />
@@ -206,7 +208,7 @@ const ProductDetail = () => {
          }
 
          {
-             FoundProductDetail?<>
+             FoundProductDetail&&newdata.ProductDetail!=undefined?<>
              <div className=' mt-3 w-[100%] h-max  border rounded-[5px] p-5'>
                 <h1 className='font-[700] text-xl' >Product Details</h1>
                 {
