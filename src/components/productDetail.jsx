@@ -24,7 +24,7 @@ const ProductDetail = () => {
    
   const navigate=useNavigate()
 
-  const {data,isshowlogin}=useContext(UserContext)
+  const {data,isshowlogin,cartNumber,numberOfdata}=useContext(UserContext)
   function senddata(index,item){
     localStorage.setItem('data', JSON.stringify(item))
    data(item)
@@ -114,7 +114,11 @@ const ProductDetail = () => {
   
 
     })
-    
+    if(numberOfdata==1){
+      cartNumber(2)
+    }else{
+      cartNumber(1)
+    }
     notify()
   }
     

@@ -211,3 +211,28 @@
   top: -10px;
   right: -5px;
 }
+.cartfistdiv{
+  margin-top: 10px;
+  width: 500px;
+  height: max-content;
+  padding-bottom: 10px;
+  
+  
+ 
+  border: 2px solid #ddd;
+  border-radius: 10px;
+
+}
+.allcartleft{
+ border-right: 1px solid #ddd;
+  width: 60%;
+  height: 80vh;
+  overflow: scroll;
+  padding-left: 270px;
+}
+.allcartleft::-webkit-scrollbar{
+  display: none;
+}
+.textunderline{
+  text-decoration: underline;
+}

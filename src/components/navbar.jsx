@@ -15,7 +15,7 @@ import { UserContext } from '../App';
 const Navbar = () => {
  
   
-  const { filter,isshowlogin,alldatavalue } = useContext(UserContext);
+  const { filter,isshowlogin,alldatavalue,numberOfdata,cartNumber } = useContext(UserContext);
   
   const location = useLocation();
   const [showlogin, setshowlogin] = useState(true); // Assuming useState is imported
@@ -27,6 +27,8 @@ const Navbar = () => {
  const [dataLength, setdataLength] = useState();
  
   useEffect(() => {
+ 
+
     if(location.pathname == '/login'){
       setshowlogin(false);
       console.log('yes');
@@ -52,9 +54,17 @@ const Navbar = () => {
         alldatavalue(data.data.count)
        })
      }
-
+         
 
   }, [location.pathname]); 
+
+  useEffect(() => {
+     if(numberOfdata){
+      setdataLength(dataLength+1)
+      alldatavalue(dataLength+1)
+     }
+     
+  }, [numberOfdata])
 
  
   const handleKeyPress = (e) => {

@@ -61,7 +61,18 @@ const Login = () => {
       body: JSON.stringify({
         email: email
       })
-     }).then((resp)=>resp.json().then((data)=>console.log(data)))
+     }).then((resp)=>resp.json().then((data)=>{
+      fetch('https://messobackend.vercel.app/otpsend',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email
+        })
+      }).then((resp)=>resp.json()).then((data)=>console.log(data))
+      localStorage.setItem('messo_id', data.message._id)
+     }))
            localStorage.setItem('email', email)
       
       notify()

@@ -1,17 +1,15 @@
-import React ,{ useEffect,useState }from 'react'
+import React ,{ useContext,useEffect,useState }from 'react'
 import { Link } from 'react-router-dom';
 
-
+ import {UserContext} from '../App'
 const CartHeader = () => {
+  const {cartheaderValue}=useContext(UserContext)
     const [numbering, setnumbering] = useState(1);
     useEffect(() => {
-      if(localStorage.getItem('cart')){
-        setnumbering(1)
-      }
-    }, [])
-    if(setnumbering==1){
-
-    }
+      setnumbering(cartheaderValue)
+     
+    }, [cartheaderValue])
+   
   return (
     <>
     <div className='p-5 flex items-center' >
@@ -36,7 +34,7 @@ const CartHeader = () => {
    </div>
    </div>
    <hr />
-   <br /><br /><br />
+   <br /><br />
    
     </>
   )
